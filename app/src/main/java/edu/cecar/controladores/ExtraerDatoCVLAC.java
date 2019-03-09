@@ -8,6 +8,10 @@ import java.io.IOException;
 
 public class ExtraerDatoCVLAC {
 
+    private ExtraerDatoCVLAC() {
+
+    }
+
     public static Investigador  getDatos(String url) {
 
         Investigador investigador = null;
@@ -18,7 +22,9 @@ public class ExtraerDatoCVLAC {
             Document documentoHTML = Jsoup.connect(url).get();
 
             Element tablas = documentoHTML.select("table").get(1); //Se obtiene la segunda tabla
+            Element tablasLineaOcho = documentoHTML.select("table").get(8); //Se obtiene la octava tabla
             Elements filasTabla = tablas.select("tr"); // Se obtienen las filas de la tabla
+            Elements filasTablaOcho = tablasLineaOcho.select("tr"); // Se obtienen las filas de la tablaLineaOcho
 
             int  filaNombre = 0;
             int filaNacionalidad = 2;
@@ -29,6 +35,9 @@ public class ExtraerDatoCVLAC {
                 filaNacionalidad = 4;
                 filaSexo = 5;
             }
+
+            //Verificacion
+            filasTablaOcho.get(0).select("td").get(1).text();
 
             //Se obtienen las columnas para cada atributo del invstigador
             String nombre = filasTabla.get(filaNombre).select("td").get(1).text();
