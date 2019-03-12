@@ -12,7 +12,7 @@ public class MainActivity extends AppCompatActivity {
     private TextInputEditText teSexo;
     private TextInputEditText teCategoria;
 
-    // String url = "http://scienti.colciencias.gov.co:8081/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0000733180";
+    String url = "http://scienti.colciencias.gov.co:8081/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0001007017";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-                Investigador investigador = ExtraerDatoCVLAC.getDatos("http://scienti.colciencias.gov.co:8081/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0000733180");
+                Investigador investigador = ExtraerDatoCVLAC.getDatos(url);
                 adicionarDatosCasillasTexto(investigador);
 
             }

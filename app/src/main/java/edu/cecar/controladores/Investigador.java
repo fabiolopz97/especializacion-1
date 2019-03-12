@@ -13,6 +13,8 @@
 
 package edu.cecar.controladores;
 
+import java.util.List;
+
 /**
   Esta clase modela los datos de un Investigador
 */
@@ -23,7 +25,7 @@ public class Investigador {
     private String nacionalidad;
     private String sexo;
     private boolean categorizado;
-
+    private List<LineaInvestigacion> lineas;
     public Investigador(String nombres, String nacionalidad, String sexo,boolean categorizado) {
 
         this.nombres = nombres;
@@ -31,6 +33,14 @@ public class Investigador {
         this.sexo = sexo;
         this.categorizado = categorizado;
 
+    }
+
+    public List<LineaInvestigacion> getLineas() {
+        return lineas;
+    }
+
+    public void setLineas(List<LineaInvestigacion> lineas) {
+        this.lineas = lineas;
     }
 
     public String getNombres() {

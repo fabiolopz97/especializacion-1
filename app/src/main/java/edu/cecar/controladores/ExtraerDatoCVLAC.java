@@ -1,13 +1,17 @@
 package edu.cecar.controladores;
 
+import android.util.Log;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.nodes.TextNode;
 import org.jsoup.select.Elements;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ExtraerDatoCVLAC {
-
     private ExtraerDatoCVLAC() {
 
     }
@@ -15,6 +19,7 @@ public class ExtraerDatoCVLAC {
     public static Investigador  getDatos(String url) {
 
         Investigador investigador = null;
+         List<LineaInvestigacion> lineas = new ArrayList<>();
 
         try {
 
@@ -22,7 +27,7 @@ public class ExtraerDatoCVLAC {
             Document documentoHTML = Jsoup.connect(url).get();
 
             Element tablas = documentoHTML.select("table").get(1); //Se obtiene la segunda tabla
-            Element tablasLineaOcho = documentoHTML.select("table").get(8); //Se obtiene la octava tabla
+            Element tablasLineaOcho = documentoHTML.select("table").get(6); //Se obtiene la octava tabla
             Elements filasTabla = tablas.select("tr"); // Se obtienen las filas de la tabla
             Elements filasTablaOcho = tablasLineaOcho.select("tr"); // Se obtienen las filas de la tablaLineaOcho
 
@@ -37,7 +42,19 @@ public class ExtraerDatoCVLAC {
             }
 
             //Verificacion
-            filasTablaOcho.get(0).select("td").get(1).text();
+            //filasTablaOcho.get(0).select("td").get(1).text();
+            Elements listas = tablasLineaOcho.select("li");
+            if (listas.isEmpty()){
+                //mostrara error
+            }else{
+                for (Element lista : listas) {
+                    Log.i("dato lista",lista.text());
+                    List<TextNode> nodos = lista.textNodes();
+                     boolean isActivo = nodos.get(1).text().equalsIgnoreCase("Si");
+                    lineas.add(new LineaInvestigacion(nodos.get(0).text(),isActivo));
+                }
+
+            }
 
             //Se obtienen las columnas para cada atributo del invstigador
             String nombre = filasTabla.get(filaNombre).select("td").get(1).text();
@@ -46,7 +63,7 @@ public class ExtraerDatoCVLAC {
 
             //Se crea el objeto investigador
             investigador = new Investigador(nombre, nacionalidad,sexo,true);
-
+            investigador.setLineas(lineas);
         } catch (IOException e) {
 
             e.printStackTrace();

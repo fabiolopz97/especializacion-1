@@ -1,7 +1,11 @@
 package edu.cecar.controladores;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -11,7 +15,14 @@ import static org.junit.Assert.*;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class ExtraerDatoCVLACUnitTest {
-
+    private List<Investigador> investigadores;
+    private String urls[] = {"http://scienti.colciencias.gov.co:8081/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0001376707",
+    "http://scienti.colciencias.gov.co:8081/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0000787132"};
+    @Before
+    public  void setUpClass() {
+        investigadores = new ArrayList<>();
+        //investigadores.add(new Investigador())
+    }
     @Rule
     public GestionTestExtraerDatosCVLAC gestionTestExtraerDatosCVLAC = new GestionTestExtraerDatosCVLAC();
 
@@ -19,9 +30,8 @@ public class ExtraerDatoCVLACUnitTest {
 
     @Test
     public void testDatosCVLAC() {
-        //Se definen los datos de referencia con los
-        //que se probara el metodo extraerDatos
-        Investigador investigador1 = ExtraerDatoCVLAC.getDatos("http://scienti.colciencias.gov.co:8081/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0001376707");
+      /*
+         Investigador investigador1 = ExtraerDatoCVLAC.getDatos("http://scienti.colciencias.gov.co:8081/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0001376707");
         Investigador investigador2 = ExtraerDatoCVLAC.getDatos("http://scienti.colciencias.gov.co:8081/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0000787132");
 
         //Se definen los datos esperados
@@ -31,6 +41,8 @@ public class ExtraerDatoCVLACUnitTest {
         // Se comprueba o testea el valor esperado con el obtenido
         assertEquals(nombreInvestigador1, investigador1.getNombres());
         assertEquals(nombreInvestigador2, investigador2.getNombres());
+
+       */
 
      
     }
